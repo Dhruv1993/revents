@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Grid, Button } from "semantic-ui-react";
 import EventList from "../EventList/EventList";
 import EventForm from "../../EventForm/EventForm";
-
+import cuid from "cuid";
 import Responsive from "react-responsive";
 // const Desktop = props => <Responsive {...props} minWidth={992} />;
 // // const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -86,6 +86,20 @@ class EventDashboard extends Component {
       isOpen: false
     });
   };
+  
+  handleCreateEvents = (newEvent) => {
+    console.log(newEvent);
+    newEvent.id = cuid(); // this adds new property to newEvent object
+    newEvent.hostPhotoURL = '/assets/user.png';
+    const updatedEvent = [...this.state.events, newEvent]; // copies above state.events plus newEvent that now has
+    // id and hostPhotoURL
+    console.log(updatedEvent);
+    this.setState({
+      events:updatedEvent,
+      isOpen: false
+    });
+  }
+
   render() {
     return (
       <div>
@@ -101,7 +115,7 @@ class EventDashboard extends Component {
               content="Create Event"
             />
             {this.state.isOpen && (
-              <EventForm handleCancelFrom={this.handleCancelFrom} />
+              <EventForm createEvent = {this.handleCreateEvents} handleCancelFrom={this.handleCancelFrom} />
             )}
             {/* {/** handleCancelFrom = {this.handleCancelFrom}* Here we gave a reference to the function handleCancelForm/} to its child*/}
           </Grid.Column>

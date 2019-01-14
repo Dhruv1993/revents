@@ -5,6 +5,7 @@ import EventListAttendees from "../EventList/EventListAttendees";
 export default class EventListItems extends Component {
   render() {
     const {event} = this.props;
+    console.log(event);
     return (
       <Segment.Group>
         <Segment>
@@ -35,7 +36,7 @@ export default class EventListItems extends Component {
         <Segment secondary>
           <List horizontal>
 
-          {event.attendees.map((item) => (
+          {event.attendees && event.attendees.map((item) => (
             <EventListAttendees key={item.id} attendee={item}/>
           ))}
             
