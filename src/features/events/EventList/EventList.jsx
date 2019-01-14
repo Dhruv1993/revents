@@ -4,8 +4,9 @@ import EventListItems from "../EventList/EventListItems";
 
 class EventList extends Component {
   render() {
+    
     const { events } = this.props;
-    console.log(this.props);
+    console.log(events);
     return (
       <div>
         {events.map(event => (

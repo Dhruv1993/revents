@@ -61,17 +61,49 @@ const eventsDashboard = [
 ];
 
 class EventDashboard extends Component {
+  // constructor(props) {
+  // super(props); // called the constructor of the parent class Component. Recomended practice in react documentation
+  // this.handleFormOpen = this.handleFormOpen.bind(this);
+  // this.handleCancelFrom = this.handleCancelFrom.bind(this);
+
+  state = {
+    events: eventsDashboard,
+    isOpen: false // variable to determine if a form is open or not
+  };
+  // }
+
+  handleFormOpen = () => {
+    // arrow function doesnt require this binding
+    // in order to bind this method to the component class we do this.handleFormOpen = this.handleFormOpen.bind(this); or
+    // another way of doing it is simply calling this function using arrow functions because this doesn't require this binding
+    this.setState({
+      isOpen: true
+    });
+  };
+
+  handleCancelFrom = () => {
+    this.setState({
+      isOpen: false
+    });
+  };
   render() {
     return (
       <div>
         <Grid>
           <Grid.Column width={10} className="gridTen">
-            <EventList events={eventsDashboard} />
+            <EventList events={this.state.events} />
             {/** events is the property passed to the props and can be assed via props. console.log(this.props.events)*/}
           </Grid.Column>
           <Grid.Column width={6} className="gridSix">
-            <Button positive content="Create Event" />
-            <EventForm />
+            <Button
+              onClick={this.handleFormOpen}
+              positive
+              content="Create Event"
+            />
+            {this.state.isOpen && (
+              <EventForm handleCancelFrom={this.handleCancelFrom} />
+            )}
+            {/* {/** handleCancelFrom = {this.handleCancelFrom}* Here we gave a reference to the function handleCancelForm/} to its child*/}
           </Grid.Column>
         </Grid>
       </div>
