@@ -1,18 +1,72 @@
 import React, { Component } from "react";
 import { Segment, Form, Button } from "semantic-ui-react";
+
+const emptyEvents = {
+  title: "",
+  date: "",
+  city: "",
+  venue: "",
+  hostedBy: ""
+};
+
 class EventForm extends Component {
   state = {
-    event: {
-      title: "",
-      date: "",
-      city: "",
-      venue: "",
-      hostedBy: ""
+    event: emptyEvents
+    
+  };
+
+  componentDidMount() {
+    if (this.props.selectedEvent !== null) {
+      this.setState({
+        event: this.props.selectedEvent
+      });
+      
+      console.log(this.props.selectedEvent);
     }
+  }
+
+  //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+  componentWillReceiveProps(nextProps) {//componentWillReceiveProps is required if you want to update the state values with new props values, this method will get called whenever any change happens to props values.
+    // console.log("current: ", this.props.selectedEvent);
+    // console.log("next item is: ", nextProps.selectedEvent); 
+// console.log(typeof(nextProps.selectedEvent !== this.props.selectedEvent));
+    if (nextProps.selectedEvent !== this.props.selectedEvent) {
+      this.setState({
+        event: nextProps.selectedEvent || emptyEvents
+      }) 
+    }
+  }
+
+  onFormSubmit = evt => {
+    evt.preventDefault();
+    //console.log(this.state.event); // refs is like props anything in React if defined under ref tag as we did in input, can
+    // be assessed by refs
+    console.log(this.state.event); 
+    if (this.state.event.id) {
+      this.props.updateEvent(this.state.event);
+      console.log(this.state.event); 
+    } else {
+      this.props.createEvent(this.state.event);
+    }
+    
+  };
+
+  onInputChange = e => {
+    // console.log(e.target.value); gets fired everytime we hit the stroke from keyboard
+    const newEvent = this.state.event; // we copy whole of the event state object in newEvent
+    newEvent[e.target.name] = e.target.value; // we specifically place target value in newEvent according to the name convention
+    //newEvent[e.target.name] this targets the name values eg. if we are in title typing Dhruv, so onInputChange is fired on every letter
+    // and its value which is takken out by e.target.value is carefully planted in newEvent against the name, that is in this case
+    // title
+    console.log(newEvent);
+    this.setState({
+      event: newEvent
+    });
   };
   render() {
     const { handleCancelFrom } = this.props; // it says access the property handleCancelFrom from the props
     const { event } = this.state;
+    // console.log("new State of Event is: ", this.state.event);
     return (
       <Segment>
         <Form onSubmit={this.onFormSubmit}>
@@ -72,26 +126,6 @@ class EventForm extends Component {
       </Segment>
     );
   }
-  onFormSubmit = evt => {
-    evt.preventDefault();
-    console.log(this.state.event); // refs is like props anything in React if defined under ref tag as we did in input, can
-    // be assessed by refs
-    this.props.createEvent(this.state.event)
-    console.log(this.state.event);
-  };
-
-  onInputChange = e => {
-    // console.log(e.target.value); gets fired everytime we hit the stroke from keyboard
-    const newEvent = this.state.event; // we copy whole of the event state object in newEvent
-    newEvent[e.target.name] = e.target.value; // we specifically place target value in newEvent according to the name convention
-    //newEvent[e.target.name] this targets the name values eg. if we are in title typing Dhruv, so onInputChange is fired on every letter
-    // and its value which is takken out by e.target.value is carefully planted in newEvent against the name, that is in this case
-    // title
-    console.log(newEvent);
-    this.setState({
-      event: newEvent
-    });
-  };
 }
 
 export default EventForm;
