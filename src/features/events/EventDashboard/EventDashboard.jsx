@@ -111,7 +111,13 @@ class EventDashboard extends Component {
       isOpen: false,
       selectedEvent: null
     })
-    
+  }
+
+  handleDeleteEvent = (eventID) => () => {
+    const updateEvent = this.state.events.filter(e => e.id !== eventID);
+    this.setState({
+      events: updateEvent
+    })
   }
 
   handleCreateEvents = (newEvent) => {
@@ -134,7 +140,7 @@ class EventDashboard extends Component {
       <div>
         <Grid>
           <Grid.Column width={10} className="gridTen">
-            <EventList onEventOpen={this.handleOpenEvents} events={this.state.events} />
+            <EventList deleteEvent={this.handleDeleteEvent} onEventOpen={this.handleOpenEvents} events={this.state.events} />
             {/** events is the property passed to the props and can be assed via props. console.log(this.props.events)*/}
           </Grid.Column>
           <Grid.Column width={6} className="gridSix">
