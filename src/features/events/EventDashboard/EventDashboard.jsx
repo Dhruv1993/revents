@@ -88,7 +88,10 @@ class EventDashboard extends Component {
       isOpen: false
     });
   };
-  
+  // double es6 functions are used when we have to pass on the values from the child to a parent where an event has been raised.
+  // handleOpenEvents is passed in props of EventList and from there passed on to EventListItems, where it can be 
+  // assessed as onEventOpen on the view button which passes the argument as 'event'(the event argument is to signify which 
+  //event has been opened)
   handleOpenEvents = (eventsToOpen) => () => {
     // console.log(eventsToUpdate);
     this.setState({
