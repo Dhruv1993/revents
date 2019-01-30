@@ -18,7 +18,7 @@ const mapState = (state, ownProps) => {
     event = state.events.filter(event => event.id === eventId)[0];
   }
   return {
-    event
+    event // this is available in the props of this component
   };
 };
 
@@ -38,6 +38,7 @@ class EventForm extends Component {
     if (this.state.event.id) {
       this.props.updateEvent(this.state.event);
       // console.log(this.state.event);
+      this.props.history.goBack();
     } else {
       const newEvent = {
         ...this.state.event,
@@ -58,7 +59,11 @@ class EventForm extends Component {
     });
   };
   render() {
-    const { handleCancelFrom, event } = this.props;
+    // const { handleCancelFrom } = this.props;
+    const { event } = this.state;
+    console.log(this.props);
+    console.log(event);
+    //    console.log(event);
     return (
       <Segment>
         <Form onSubmit={this.onFormSubmit}>
@@ -111,7 +116,7 @@ class EventForm extends Component {
           <Button positive type="submit">
             Submit
           </Button>
-          <Button onClick={handleCancelFrom} type="button">
+          <Button onClick={this.props.history.goBack} type="button">
             Cancel
           </Button>
         </Form>
