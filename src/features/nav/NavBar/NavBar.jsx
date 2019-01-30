@@ -4,7 +4,7 @@ import { NavLink, Link, withRouter } from "react-router-dom";
 import SignedOutMenu from "../Menus/SignedOutMenu";
 import SignedInMenu from "../Menus/SignedInMenu";
 
-/**Difference between the Linka and NavLink is that NavLink is sort of linke bootstrap active class where the link
+/**Difference between the Link and NavLink is that NavLink is sort of link bootstrap active class where the link
  * get highlighted when the content associated with it get activated. Link is simply the link. They work same just the
  * difference is the hightlight.
  */
@@ -29,13 +29,15 @@ class NavBar extends Component {
     const { authenticated } = this.state;
     return (
       <div>
-        <Menu inverted fixed="top">
+        <Menu stackable fixed='top'>
           <Container>
             <Menu.Item as={Link} to="/">
               <img src="/assets/logo.png" alt="logo" />
               Re-vents
             </Menu.Item>
             <Menu.Item as={NavLink} to="/events" name="Events" />
+            <Menu.Item as={NavLink} to="/test" name="Test" />
+
             
             { authenticated && <Menu.Item as={NavLink} to="/people" name="People" />}
             
@@ -45,7 +47,6 @@ class NavBar extends Component {
                 to="/createEvent"
                 floated="right"
                 positive
-                inverted
                 content="Create Event"
               />
             </Menu.Item>}
