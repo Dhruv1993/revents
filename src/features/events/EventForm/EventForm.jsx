@@ -3,13 +3,15 @@ import { Segment, Form, Button, Grid, Header } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { createEvent, updateEvent } from "../eventActions";
 import cuid from "cuid";
-import moment from 'moment'
+import moment from "moment";
 import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import TextInputs from "../../../app/common/form/TextInputs";
 import TextArea from "../../../app/common/form/TextArea";
 import SelectInput from "../../../app/common/form/SelectInput";
 import DateInput from "../../../app/common/form/DateInput";
+// import PlaceInput from "../../../app/common/form/PlaceInput";
+
 import {
   composeValidators,
   combineValidators,
@@ -30,6 +32,7 @@ const mapState = (state, ownProps) => {
 
     // What we return from the mapState becomes props on the component.  By setting the initialValues prop here we are able to initialise the form values with the event and populate the form with the values we retrieve from the redux state.
   };
+ 
 };
 
 const actions = {
@@ -59,17 +62,16 @@ const validate = combineValidators({
   )(),
   city: isRequired("city"),
   venue: isRequired("venue"),
-  date: isRequired('date required')
+  date: isRequired("date required")
 });
 
 class EventForm extends Component {
-
   onFormSubmit = values => {
     values.date = moment(values.date).format(); // since we passed the moment fields into custom component for datepicker, we need to match our field with moment
-  
+
     // evt.preventDefault(); redux forms handle's this already
-    console.log(this.props.initialValues.id);
-    console.log(values);
+    // console.log(this.props.initialValues.id);
+    // console.log(values);
 
     if (this.props.initialValues.id) {
       this.props.updateEvent(values);
@@ -77,7 +79,7 @@ class EventForm extends Component {
       this.props.history.goBack();
     } else {
       const newEvent = {
-      //...values is just like we are spreading out the value fields in the values that we received from the forms
+        //...values is just like we are spreading out the value fields in the values that we received from the forms
         ...values,
         id: cuid(),
         hostPhotoURL: "/assets/user.png",
@@ -130,24 +132,26 @@ class EventForm extends Component {
               <Header sub color="teal" content="Event Location" />
 
               <Field
-                type="text"
-                placeholder="Event city"
                 name="city"
+                type="text"
                 component={TextInputs}
+                // options={{ types: ["(cities)"] }}
+                placeholder="Event city"
               />
               <Field
                 type="text"
-                placeholder="Event venue"
                 name="venue"
                 component={TextInputs}
+                // options={{ types: ["(establishment)"] }}
+                placeholder="Event venue"
               />
               <Field
                 type="text"
                 placeholder="Date and Time of Event"
                 name="date"
                 component={DateInput}
-                dateFormat='YYYY-MM-DD HH:mm'
-                timeFormat='HH:mm'
+                dateFormat="YYYY-MM-DD HH:mm"
+                timeFormat="HH:mm"
                 showTimeSelect
               />
               <Button

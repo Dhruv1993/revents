@@ -12,11 +12,13 @@ import SettingsDashboard from "../../features/user/Settings/SettingsDashboard";
 import EventForm from "../../features/events/EventForm/EventForm";
 import HomePage from "../../features/home/HomePage";
 import TestComponent from '../../features/test/TestComponent';
+import ModalManager from '../../features/Modals/modalManager';
 
 class App extends Component {
   render() {
     return (
       <div>
+        <ModalManager /> {/** Alwys make sure that the name starts with capitals while we make react functional components*/}
         {/**We made HomePage exclusive not in connections with other pages */}
         <Switch>
           <Route exact path="/" component={HomePage} />

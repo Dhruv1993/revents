@@ -7,7 +7,8 @@ import EventDetailedInfo from "./EventDetailedInfo";
 import { connect } from "react-redux";
 // stateless functional component
 
-const EventDetailPage = ({ event }) => {
+const EventDetailPage = ({ event }) => { // this event is because we map according to the id parameter
+  // console.log(event);
   return (
     <Grid>
       <Grid.Column mobile={16} tablet={8} computer={10}>
@@ -23,7 +24,7 @@ const EventDetailPage = ({ event }) => {
 };
 // here the only thing we did was to connect the state of the event reducer and make it available as props in this component
 const mapState = (state, ownProps) => {
-  const eventId = ownProps.match.params.id; // this gets the id of the post, and we need this id
+  const eventId = ownProps.match.params.id; // this gets the id of the post, and we need this id. This is because of the routes
   let event = {};
   event = state.events.filter(event => event.id === eventId)[0];
   console.log(event);

@@ -69,6 +69,7 @@ class EventDashboard extends Component {
 
   render() {
     const { events } = this.props;
+    // console.log(events);
     return (
       <div>
         <Grid>

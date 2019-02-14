@@ -1,7 +1,8 @@
 import React from "react";
 // stateless functional component
 import { Menu, Button } from "semantic-ui-react";
-const SignedOutMenu = ({ signIn }) => {
+
+const SignedOutMenu = ({ signIn, register }) => {
   return (
     <div>
       <Menu.Item position="right">
@@ -11,6 +12,7 @@ const SignedOutMenu = ({ signIn }) => {
           inverted
           content="Register"
           style={{ float: "right" }}
+          onClick={register}
         />
       </Menu.Item>
     </div>
