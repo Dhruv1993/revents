@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Segment, Item, Icon, List, Button } from "semantic-ui-react";
 import EventListAttendees from "../EventList/EventListAttendees";
 import { Link } from "react-router-dom";
+import format from "date-fns/format";
 export default class EventListItems extends Component {
   render() {
     const { event, deleteEvent } = this.props;
@@ -23,7 +24,9 @@ export default class EventListItems extends Component {
         </Segment>
         <Segment>
           <span>
-            <Icon name="clock" /> {event.date} |
+            {/* In order to format check datefns website and search format and cheange version to 1.29 to check es15 */}
+            <Icon name="clock" /> {format(event.date, "dddd Do MMMM")} at{" "}
+            {format(event.date, "HH:mm")}
             <Icon name="marker" /> {event.venue}
           </span>
         </Segment>

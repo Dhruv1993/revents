@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'// css file for displaying the toaster
 import "./index.css";
+import ReduxToastr from 'react-redux-toastr' // component used to display toast
 // import 'bootstrap/dist/css/bootstrap.css'
 import App from "./app/layout/App";
 import * as serviceWorker from "./serviceWorker";
@@ -24,6 +26,12 @@ let render = () => {
     <Provider store={store}>
       <BrowserRouter>
         <ScrollToTop>
+          {/* this is a top level component and can be accessed from anywhere in the app. We can call it in any action*/}
+          <ReduxToastr
+          position='bottom-right'
+          transitionIn='bounceIn'
+          transitionOut='bounceOut'
+          /> 
           <App />
         </ScrollToTop>
       </BrowserRouter>

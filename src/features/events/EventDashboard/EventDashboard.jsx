@@ -4,6 +4,7 @@ import EventList from "../EventList/EventList";
 import { connect } from "react-redux";
 import { updateEvent, deleteEvent } from "../eventActions";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import EventActivity from "../EventActivity/EventActivity";
 
 // import Responsive from "react-responsive";
 // const Desktop = props => <Responsive {...props} minWidth={992} />;
@@ -85,6 +86,7 @@ class EventDashboard extends Component {
           </Grid.Column>
           <Grid.Column mobile={16} tablet={8} computer={6} className="gridSix">
             {/* {/** handleCancelFrom = {this.handleCancelFrom}* Here we gave a reference to the function handleCancelForm/} to its child*/}
+          <EventActivity/>
           </Grid.Column>
         </Grid>
       </div>

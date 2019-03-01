@@ -11,30 +11,44 @@ import {
   asyncActionError
 } from "../async/asyncAction";
 import { fetchSampleData } from "../../app/data/mockApi";
+import { toastr } from "react-redux-toastr";
 
 export const fetchEvents = events => {
   return {
     type: FETCH_EVENTS,
     payload: events //
-    
   };
 };
 
 export const createEvent = event => {
   // event received from the component
-  return {
-    type: CREATE_EVENT,
-    payload: {
-      event
+  return dispatch => {
+    try {
+      dispatch({
+        type: CREATE_EVENT,
+        payload: {
+          event
+        }
+      });
+      toastr.success("Success", "The event hs been created!!");
+    } catch (error) {
+      toastr.error('Whoopsie', 'Something went wrong');
     }
   };
 };
 
 export const updateEvent = event => {
-  return {
-    type: UPDATE_EVENT,
-    payload: {
-      event
+  return dispatch => {
+    try {
+      dispatch({
+        type: UPDATE_EVENT,
+        payload: {
+          event
+        }
+      });
+      toastr.success('Success','The event has been modified!!');
+    } catch (error) {
+      toastr.error('Yikes','something went wrong!!');
     }
   };
 };
@@ -52,7 +66,7 @@ export const loadEvents = () => {
   return async dispatch => {
     try {
       dispatch(asyncActionStart()); // start the loader by setting the loading flag back to true from its initial stae of false
-      let events = await fetchSampleData(); // Fetch the data//because this take 2 seconds time to come because of the mockAPI // 
+      let events = await fetchSampleData(); // Fetch the data//because this take 2 seconds time to come because of the mockAPI //
       dispatch(fetchEvents(events)); // push the data to the reducer
       dispatch(asyncActionFinish()); // stop the loader and the loading flag is set back to false
     } catch (error) {
