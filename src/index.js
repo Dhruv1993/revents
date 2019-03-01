@@ -9,9 +9,14 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { configureStore } from "./app/store/configureStore";
 import ScrollToTop from "./app/common/util/scrollToTop";
+import {loadEvents} from './features/events/eventActions'
+// there are a couple of ways by which the api is called data is rerendered like componentdidMount in into the events list to call the dispatch and others
+// but we can also 
+// directly mount it via store via the dispatch and is available when the store first loads
 
 // we can now go to the component and connect to the store since we provided Provider
-const store = configureStore();
+const store = configureStore();// after configuring and running the app we first run loadEvents, so the events are populated in the state beforehand
+store.dispatch(loadEvents());// dispatch loadEvents
 
 const routeEL = document.getElementById("root");
 let render = () => {

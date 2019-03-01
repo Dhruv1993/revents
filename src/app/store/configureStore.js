@@ -3,9 +3,9 @@
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "../reducers/rootReducer";
 import { composeWithDevTools } from 'redux-devtools-extension' // this is an extension in dev dependencies, which allows us to see the redux store values if we use it as an store enhancer
-
+import thunk from 'redux-thunk'
 export const configureStore = preloadedState => {
-  const middleWares = [];
+  const middleWares = [thunk];
   const middlewareEnhancer = applyMiddleware(...middleWares);
   const storeEnhancers = [middlewareEnhancer];
   const composeEnhancer = composeWithDevTools(...storeEnhancers);

@@ -28,7 +28,7 @@ class NavBar extends Component {
   // };
 
   handleSignIn = () => {
-    this.props.openModal("LoginModal");
+    this.props.openModal("LoginModal"); // open modal is available as props because it has been mappped
   };
   handleResister = () => {
     this.props.openModal("RegisterModal");

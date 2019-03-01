@@ -26,7 +26,8 @@ const ModalManager = ({currentModal}) => {  // this is the way of destructuring 
 }
 
 const mapStateToProps = (state) => {
-  
+  // when mapstate to props is done, then the action and reducer is available.
+  // That means that the action with payload called modalType is available when someone pressed any modal
   return {
     currentModal: state.modals // modals is from the root reducer
   }

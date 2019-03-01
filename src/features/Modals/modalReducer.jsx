@@ -3,7 +3,7 @@ import { createReducer } from "../../app/common/util/reducerUtil";
 
 const initialState = null;
 
-// since actions are pased into the reducer, they are automaticaly made available and combined at the app.js file.
+// since actions are pased into the reducer, they are automatically made available and combined at the app.js file.
 
 
 
@@ -13,9 +13,11 @@ export const openModal = (state, payload) => {
   return { modalType, modalProps };
 };
 
+
 export const closeModal = () => {
   return null;
 };
+
 
 export default createReducer(initialState, {
   [MODAL_OPEN]: openModal,

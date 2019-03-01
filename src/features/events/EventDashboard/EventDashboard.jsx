@@ -3,6 +3,8 @@ import { Grid } from "semantic-ui-react";
 import EventList from "../EventList/EventList";
 import { connect } from "react-redux";
 import { updateEvent, deleteEvent } from "../eventActions";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+
 // import Responsive from "react-responsive";
 // const Desktop = props => <Responsive {...props} minWidth={992} />;
 // // const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -68,7 +70,11 @@ class EventDashboard extends Component {
   // };
 
   render() {
-    const { events } = this.props;
+    const { events, loading } = this.props;
+    if(loading) return <LoadingComponent inverted = {true}/> ; //so basically 
+    // when the loadEvents() is dispatched in the index file it calls other actions, such as AsyncActionStart{loading=true} followed by fetching data from 
+    //the mock api , then sending the captured events to the reducer via fetchEvents. In the reducer, due to FETCH_EVENT constant
+    // fetchEvents() function will be called and will return payload.events. Finally AsyncActionFinish{loading=false}
     // console.log(events);
     return (
       <div>
@@ -88,7 +94,8 @@ class EventDashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    events: state.events // these are now available to the props of this component at events
+    events: state.events, // these are now available to the props of this component at events
+    loading: state.async.loading // async has the flags 
   };
 };
 

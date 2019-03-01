@@ -6,12 +6,12 @@ const initialState = {
     currentUser : {} // empty state at the begining. IT is an empty object
 }
 
-export const loginUser = (state, payload) => {
+export const loginUser = (state, pload) => {
 
     return {
         ...state, // this returns a new state with following parameters
         authenticated: true,
-        currentUser: payload.creds.email
+        currentUser: pload.creds.email
     }
 }
 

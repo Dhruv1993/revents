@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button } from "semantic-ui-react";
-import { increment_Counter, decrement_Counter } from "./testActions";
+import { incrementAsync, decrementAsync } from "./testActions";
 import Script from "react-load-script";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -38,7 +38,7 @@ class TestComponent extends Component {
 
     // console.log(this.props);
 
-    const { data, increment_Counter, decrement_Counter, openModal } = this.props;
+    const { data, incrementAsync, decrementAsync, openModal, load } = this.props;
     return (
       <div>
         <Script
@@ -47,8 +47,8 @@ class TestComponent extends Component {
         />
         <h1>Test component area: </h1>
         <h3>the answer is : {data}</h3>
-        <Button color="blue" content="increment" onClick={increment_Counter} />
-        <Button color="green" content="decrement" onClick={decrement_Counter} />
+        <Button loading={load} color="blue" content="increment" onClick={incrementAsync} />
+        <Button loading={load} color="green" content="decrement" onClick={decrementAsync} />
         <Button color="green" content="Modal" onClick={() => openModal('TestModals', {data:43})} />
 
         <br /> <br /> <br /> <br />
@@ -65,15 +65,16 @@ class TestComponent extends Component {
 
 const actions = {
   // these actions are now available as props
-  increment_Counter,
-  decrement_Counter,
+  incrementAsync,
+  decrementAsync,
   openModal
 };
 const mapStateToProps = state => {
   // the passed state is the state of the store
   // here we can get the data put by accessing it from the property defined in rootReducer and the state variables defined in the testReducer
   return {
-    data: state.test.data  // test is variable in rootreducer and data after test is the actual state variable in the reducer for this component
+    data: state.test.data,  // test is variable in rootreducer and data after test is the actual state variable in the reducer for this component
+    load: state.test.loading
   };
   // data is the custom property type we defined here. It is just a name, could be anything
   // state is from the testReducer of this component

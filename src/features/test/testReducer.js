@@ -1,8 +1,9 @@
-import { INCREMENT_COUNTER, DECREMENT_COUNTER } from "./textConstants"; // just for the defintion in the case
+import { INCREMENT_COUNTER, DECREMENT_COUNTER, COUNTER_ACTION_STARTED, COUNTER_ACTION_FINISHED } from "./textConstants"; // just for the defintion in the case
 import { createReducer } from "../../app/common/util/reducerUtil";
 
 const initalState = {
-  data: 34
+  data: 34,
+  loading: false
 }; // this is like a state variable for the test component
 
 // const testReducer = (state = initalState, action) => {
@@ -52,8 +53,23 @@ const decrement_Counter = (state, payload) => {
   };
 };
 
+export const counterActionStarted = (state, payload) => {
+  return {
+    ...state,
+    loading: true //This is used up in the button component in the TestComponent where we can use this to set the loading state to true
+  }
+}
+
+export const counterActionFinished = (state, payload) => {
+  return {
+    ...state,
+    loading: false //This is used up in the button component in the TestComponent where we can use this to set the loading state to true
+  }
+}
 
 export default createReducer(initalState, {
   [INCREMENT_COUNTER]: increment_Counter,
-  [DECREMENT_COUNTER]: decrement_Counter
+  [DECREMENT_COUNTER]: decrement_Counter,
+  [COUNTER_ACTION_STARTED]: counterActionStarted,
+  [COUNTER_ACTION_FINISHED]: counterActionFinished
 });

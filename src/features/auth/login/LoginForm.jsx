@@ -5,7 +5,7 @@ import TextInputs from '../../../app/common/form/TextInputs';
 import { connect } from 'react-redux'
 import { login } from '../authActions';
 
-const LoginForm = ({login, handleSubmit}) => {
+const LoginForm = ({login, handleSubmit}) => { // handlesubmit is from redux forms
   return (
     <Form error size="large" onSubmit={handleSubmit(login)}>
       <Segment>
